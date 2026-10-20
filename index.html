@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para a Tha 💖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rosa: #ff4d8d;
+    --rosa-escuro: #e0306f;
+    --lilas: #f6e8ff;
+    --pessego: #fff1ec;
+    --texto: #4a2340;
+    --cinza: #ece6ea;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    color: var(--texto);
+    background: linear-gradient(160deg, var(--pessego), var(--lilas));
+    overflow-x: hidden;
+  }
+
+  .coracao-fundo {
+    position: fixed;
+    bottom: -40px;
+    font-size: 22px;
+    opacity: 0.35;
+    pointer-events: none;
+    animation: sobe linear infinite;
+    z-index: 0;
+  }
+  @keyframes sobe {
+    to { transform: translateY(-110vh) rotate(25deg); }
+  }
+
+  section {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    text-align: center;
+  }
+
+  .emoji-grande {
+    font-size: 64px;
+    animation: balanca 2.4s ease-in-out infinite;
+    margin-bottom: 8px;
+  }
+  @keyframes balanca {
+    0%, 100% { transform: rotate(-6deg); }
+    50% { transform: rotate(6deg); }
+  }
+
+  h1 {
+    font-size: clamp(1.9rem, 5.5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 2.5rem;
+    max-width: 680px;
+  }
+
+  .area-botoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 440px;
+    height: 110px;
+  }
+
+  button, .botao {
+    font-family: inherit;
+    font-size: 1.15rem;
+    font-weight: 600;
+    padding: 16px 40px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    user-select: none;
+  }
+
+  #sim {
+    background: linear-gradient(135deg, var(--rosa), var(--rosa-escuro));
+    color: #fff;
+    box-shadow: 0 10px 25px rgba(255, 77, 141, 0.35);
+    animation: pulso 1.6s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+  }
+  #sim:hover { transform: scale(1.08); }
+  @keyframes pulso {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+
+  /* o Não anda pela tela inteira, em posição fixa */
+  #nao {
+    background: var(--cinza);
+    color: #7a6672;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 50;
+    white-space: nowrap;
+    transition: left 0.7s ease-in-out, top 0.7s ease-in-out;
+    display: none;
+  }
+
+  #mensagem {
+    margin-top: 1.5rem;
+    min-height: 1.6rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--rosa-escuro);
+  }
+
+  .seta {
+    margin-top: 3rem;
+    font-size: 0.95rem;
+    opacity: 0.6;
+    animation: pulsa 1.8s ease-in-out infinite;
+  }
+  @keyframes pulsa {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  #segunda {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(6px);
+  }
+  .cartao {
+    background: #fff;
+    border-radius: 28px;
+    padding: 40px 32px;
+    max-width: 560px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(74, 35, 64, 0.12);
+    text-align: left;
+  }
+  .cartao {
+    opacity: 0;
+    transform: translateY(60px) scale(0.96);
+    transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .cartao.visivel {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .cartao h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    margin: 0 0 0.6rem;
+    text-align: center;
+  }
+  .cartao > p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0 0 1.8rem;
+    text-align: center;
+  }
+  .passos {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+  }
+  .passos li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .passos .numero {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rosa), var(--rosa-escuro));
+    color: #fff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .centro { text-align: center; }
+  .botao {
+    background: linear-gradient(135deg, var(--rosa), var(--rosa-escuro));
+    color: #fff;
+    box-shadow: 0 10px 25px rgba(255, 77, 141, 0.3);
+    transition: transform 0.15s ease;
+  }
+  .botao:hover { transform: scale(1.05); }
+  .obs {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    opacity: 0.6;
+  }
+</style>
+</head>
+<body>
+
+<script>
+  const simbolos = ["💖", "💕", "✨", "🌸", "💗"];
+  for (let i = 0; i < 18; i++) {
+    const c = document.createElement("span");
+    c.className = "coracao-fundo";
+    c.textContent = simbolos[i % simbolos.length];
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.animationDuration = 8 + Math.random() * 10 + "s";
+    c.style.animationDelay = -Math.random() * 15 + "s";
+    document.body.appendChild(c);
+  }
+</script>
+
+<section id="primeira">
+  <div class="emoji-grande">🥰</div>
+  <h1>Tha, sabia que você é incrível?</h1>
+
+  <div class="area-botoes">
+    <button id="sim">Sim 💗</button>
+  </div>
+
+  <div id="mensagem"></div>
+
+  <div class="seta">↓ desce aqui quando quiser</div>
+</section>
+
+<button id="nao">Não</button>
+
+<section id="segunda">
+  <div class="cartao">
+    <h2>Antes de tudo, uma coisinha 🎁</h2>
+    <p>
+      Para usar o app que te enviei, você precisa baixar alguns arquivos
+      que estão numa pasta do Google Drive. Eles são necessários para tudo funcionar.
+    </p>
+
+    <ol class="passos">
+      <li><span class="numero">1</span><span>Clique no botão abaixo para abrir a pasta.</span></li>
+      <li><span class="numero">2</span><span>Baixe todos os arquivos para o seu celular.</span></li>
+      <li><span class="numero">3</span><span>Guarde-os num lugar de fácil acesso, pra usar junto com o app.</span></li>
+    </ol>
+
+    <div class="centro">
+      <a class="botao" href="https://drive.google.com/drive/folders/1Pxg0GPlj2Vf2QUC3j4g9fIX7Seopz9c7?usp=sharing" target="_blank" rel="noopener noreferrer">
+        Abrir pasta no Drive 📂
+      </a>
+      <p class="obs">Qualquer dúvida, é só me chamar 💌</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const nao = document.getElementById("nao");
+  const sim = document.getElementById("sim");
+  const mensagem = document.getElementById("mensagem");
+  const primeira = document.getElementById("primeira");
+
+  const frases = [
+    "Tem certeza? 🥺",
+    "Pensa de novo...",
+    "Esse botão tá com defeito 🙃",
+    "Tenta o outro, ele é mais legal",
+    "Eu sei que você quer clicar em Sim 💕",
+    "Opa, escorregou 🙈",
+    "Esse aqui é teimoso, né?",
+    "Não tá funcionando, desculpa 😅",
+    "Nem tenta, ele foge rapidinho 🏃",
+    "Você é muito persistente, sabia? 💪",
+    "Achei que você fosse mais corajosa 😏",
+    "Ele não quer ser clicado hoje 🫣",
+    "Vai, clica no outro 👉",
+    "Ops, mudou de lugar de novo!",
+    "Esse botão tem vida própria 🪄",
+    "Sério mesmo que você vai clicar nele?",
+    "Ele tá com medo de você 😂",
+    "Dica: o outro é bem mais bonito 💖",
+    "Ele tá cansado de fugir, clica no Sim!",
+    "Você não vai conseguir, desiste 🤭",
+    "Tá com preguiça de clicar em Sim? 😴",
+    "Ele pediu pra você escolher o Sim 🥹",
+    "Lá vai ele de novo 🛼",
+    "Sabia que o Sim tá com saudade? 💗",
+    "Não é culpa minha se ele é rápido ⚡",
+    "Você tem dedo de ninja, hein 🥷",
+    "Esse aqui não tem coragem de ficar parado",
+    "Já tentou o Sim? Ele é mais gente boa 🤗",
+    "Se clicar no Não, o coração do Daniel quebra 💔",
+    "Tá bom, mas eu fico na esperança 🥲",
+    "Ele tá no esconde-esconde 🙈",
+    "Ele é meio atrapalhado, perdoa 🤪",
+    "Não escuta ele, escuta o coração 💓",
+    "Quanto mais você tenta, mais ele corre 🏅",
+    "Vai ser difícil, mas você consegue 💪",
+    "O Sim tá sozinho ali, faz companhia 🥺",
+    "Quase! Só que não 😜",
+    "Tenta de novo, eu torço por você 📣",
+    "Esse botão tá de birra hoje 😤",
+    "Ele não entende o que é um não 🙄",
+    "Cuidado, ele é escorregadio 🧼",
+    "Acho que ele tá fugindo do amor 💘",
+    "Você ainda tá aqui? Que fofa 🥰",
+    "Fica mais um pouquinho e clica no Sim ✨",
+    "Esse aqui tá com TPM, desculpa 😅",
+    "Nossa, que perseguição! 🕵️",
+    "Pode continuar, eu tô me divertindo 😆",
+    "Já são muitas tentativas, hein 📈",
+    "Último aviso: o Sim é bem melhor 💖",
+    "Ok, você venceu... clica no Sim! 🎉"
+  ];
+  let tentativas = 0;
+  let posX = 0, posY = 0;
+  const RAIO = 120;   // distância do cursor em que o Não foge
+  const MARGEM = 40;  // folga ao redor do Sim
+
+  function retangulo(el) {
+    const r = el.getBoundingClientRect();
+    return { l: r.left, r: r.right, t: r.top, b: r.bottom };
+  }
+
+  // verifica se um ponto cai dentro da área proibida ao redor do Sim
+  function proibido(x, y, w, h, s) {
+    return x < s.r + MARGEM && x + w > s.l - MARGEM &&
+           y < s.b + MARGEM && y + h > s.t - MARGEM;
+  }
+
+  // o caminho em linha reta não pode atravessar o Sim
+  function caminhoLivre(x0, y0, x1, y1, w, h, s) {
+    for (let k = 0; k <= 30; k++) {
+      const t = k / 30;
+      if (proibido(x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, w, h, s)) return false;
+    }
+    return true;
+  }
+
+  function aplicar(x, y) {
+    posX = x; posY = y;
+    nao.style.left = x + "px";
+    nao.style.top = y + "px";
+  }
+
+  function moverNao(contar = true) {
+    const w = nao.offsetWidth;
+    const h = nao.offsetHeight;
+    const maxX = window.innerWidth - w - 8;
+    const maxY = window.innerHeight - h - 8;
+    const s = retangulo(sim);
+
+    let x = posX, y = posY, achou = false;
+    for (let i = 0; i < 120 && !achou; i++) {
+      const nx = 8 + Math.random() * Math.max(0, maxX - 8);
+      const ny = 8 + Math.random() * Math.max(0, maxY - 8);
+      if (!proibido(nx, ny, w, h, s) && caminhoLivre(posX, posY, nx, ny, w, h, s)) {
+        x = nx; y = ny; achou = true;
+      }
+    }
+    if (achou) aplicar(x, y);
+
+    if (contar) {
+      tentativas++;
+      mensagem.textContent = frases[(tentativas - 1) % frases.length];
+    }
+  }
+
+  // mostra o Não só enquanto a primeira seção está visível
+  function atualizarVisibilidade() {
+    const visivel = window.scrollY < window.innerHeight * 0.5;
+    nao.style.display = visivel ? "block" : "none";
+  }
+
+  // foge quando o cursor chega perto
+  document.addEventListener("mousemove", (e) => {
+    if (nao.style.display === "none") return;
+    const r = nao.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    if (Math.hypot(e.clientX - cx, e.clientY - cy) < RAIO) moverNao();
+  });
+
+  nao.addEventListener("mouseenter", () => moverNao());
+  nao.addEventListener("touchstart", (e) => { e.preventDefault(); moverNao(); }, { passive: false });
+  nao.addEventListener("click", (e) => { e.preventDefault(); moverNao(); });
+
+  window.addEventListener("scroll", atualizarVisibilidade);
+  window.addEventListener("resize", () => { atualizarVisibilidade(); });
+
+  window.addEventListener("load", () => {
+    // posição inicial: à direita do Sim, fora da área proibida
+    const w = nao.offsetWidth;
+    const s = retangulo(sim);
+    aplicar(Math.min(s.r + MARGEM + 20, window.innerWidth - w - 8), s.t);
+    if (proibido(posX, posY, w, nao.offsetHeight, s)) moverNao(false);
+    tentativas = 0;
+    atualizarVisibilidade();
+  });
+
+  // descida lenta e suave até a segunda seção, com corações saindo do Sim
+  function descerSuave(destino, duracao = 1400) {
+    const inicio = window.scrollY;
+    const fim = destino.getBoundingClientRect().top + window.scrollY;
+    const distancia = fim - inicio;
+    let t0 = null;
+    function passo(t) {
+      if (t0 === null) t0 = t;
+      const p = Math.min((t - t0) / duracao, 1);
+      const ease = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      window.scrollTo(0, inicio + distancia * ease);
+      if (p < 1) requestAnimationFrame(passo);
+    }
+    requestAnimationFrame(passo);
+  }
+
+  function explodirCoracoes() {
+    const r = sim.getBoundingClientRect();
+    for (let i = 0; i < 14; i++) {
+      const c = document.createElement("span");
+      c.textContent = ["💖", "💕", "✨", "💗"][i % 4];
+      c.style.position = "fixed";
+      c.style.left = r.left + r.width / 2 + "px";
+      c.style.top = r.top + r.height / 2 + "px";
+      c.style.fontSize = "20px";
+      c.style.pointerEvents = "none";
+      c.style.zIndex = 100;
+      c.style.transition = "transform 1.2s ease-out, opacity 1.2s ease-out";
+      document.body.appendChild(c);
+      requestAnimationFrame(() => {
+        const ang = Math.random() * Math.PI * 2;
+        const dist = 80 + Math.random() * 120;
+        c.style.transform = `translate(${Math.cos(ang) * dist}px, ${Math.sin(ang) * dist - 60}px)`;
+        c.style.opacity = "0";
+      });
+      setTimeout(() => c.remove(), 1300);
+    }
+  }
+
+  sim.addEventListener("click", () => {
+    explodirCoracoes();
+    setTimeout(() => descerSuave(document.getElementById("segunda")), 300);
+  });
+
+  // o cartão aparece com animação quando entra na tela
+  const cartao = document.querySelector("#segunda .cartao");
+  const observador = new IntersectionObserver((entradas) => {
+    entradas.forEach((e) => { if (e.isIntersecting) cartao.classList.add("visivel"); });
+  }, { threshold: 0.2 });
+  observador.observe(cartao);
+</script>
+
+</body>
+</html>
